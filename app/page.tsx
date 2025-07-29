@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Orb from "../components/Orb";
 import Carousel from "../components/Carousel";
-import { neon } from '@neondatabase/serverless';
 import { useState } from "react";
 import { createEntry } from "./actions";
 
