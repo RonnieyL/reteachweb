@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Orb from "../components/Orb";
-import Carousel from "../components/Carousel";
+// import Carousel from "../components/Carousel";
 import { neon } from "@neondatabase/serverless";
 import { useState } from "react";
 import { createEntry } from "./actions";
@@ -14,38 +14,38 @@ export default function Home() {
     createEntry(email)
   }
 
-  const carouselCards = [
-    {
-      id: 1,
-      icon: "🤖",
-      title: "AI Chat Assistant",
-      description: "Have conversations with your notes to extract insights and get answers instantly."
-    },
-    {
-      id: 2,
-      icon: "✍️",
-      title: "Smart Writing",
-      description: "AI-powered writing assistance that understands context and improves your content."
-    },
-    {
-      id: 3,
-      icon: "🎨",
-      title: "Visual Sketching",
-      description: "Draw, sketch, and annotate with intuitive tools that enhance your visual thinking."
-    },
-    {
-      id: 4,
-      icon: "🧠",
-      title: "Mind Mapping",
-      description: "Organize complex ideas with dynamic mind maps that adapt to your thought process."
-    },
-    {
-      id: 5,
-      icon: "📚",
-      title: "Learning Analytics",
-      description: "Track your learning progress and get personalized insights to improve retention."
-    }
-  ];
+  // const carouselCards = [
+  //   {
+  //     id: 1,
+  //     icon: "🤖",
+  //     title: "AI Chat Assistant",
+  //     description: "Have conversations with your notes to extract insights and get answers instantly."
+  //   },
+  //   {
+  //     id: 2,
+  //     icon: "✍️",
+  //     title: "Smart Writing",
+  //     description: "AI-powered writing assistance that understands context and improves your content."
+  //   },
+  //   {
+  //     id: 3,
+  //     icon: "🎨",
+  //     title: "Visual Sketching",
+  //     description: "Draw, sketch, and annotate with intuitive tools that enhance your visual thinking."
+  //   },
+  //   {
+  //     id: 4,
+  //     icon: "🧠",
+  //     title: "Mind Mapping",
+  //     description: "Organize complex ideas with dynamic mind maps that adapt to your thought process."
+  //   },
+  //   {
+  //     id: 5,
+  //     icon: "📚",
+  //     title: "Learning Analytics",
+  //     description: "Track your learning progress and get personalized insights to improve retention."
+  //   }
+  // ];
   return (
     <div className="min-h-screen bg-white relative">
       {/* Header */}
@@ -134,9 +134,9 @@ export default function Home() {
       {/* Features Section */}
       <section className="min-h-screen bg-red-400 relative py-12 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 w-full">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center min-h-screen">
+          <div className="grid lg:grid-cols-5 gap-8 lg:gap-16 items-center min-h-screen">
             {/* Left Content */}
-            <div className="space-y-8 sm:space-y-12 lg:space-y-16 lg:pl-4 lg:pr-8 xl:pr-12 text-center lg:text-left">
+            <div className="lg:col-span-2 space-y-8 sm:space-y-12 lg:space-y-16 lg:pl-4 lg:pr-8 xl:pr-12 text-center lg:text-left">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light text-gray-200 leading-relaxed sm:leading-loose tracking-wide">
                 Writing, Drawing, Thinking, and Learning have never been this easy.
               </h2>
@@ -146,15 +146,31 @@ export default function Home() {
               </p>
             </div>
 
-            {/* Right Content - Carousel */}
-            <div className="relative h-[300px] sm:h-[400px] lg:h-[500px] xl:h-[600px] mt-8 lg:mt-0 w-full">
+            {/* Right Content - Video Placeholder */}
+            <div className="lg:col-span-3 relative mt-8 lg:mt-0 w-full">
+              <div className="relative w-full bg-gray-900 rounded-xl overflow-hidden shadow-lg aspect-video max-w-4xl mx-auto">
+                <div className="absolute inset-0 flex items-center justify-center bg-gray-800">
+                  <div className="text-center text-white">
+                    <div className="w-20 h-20 mx-auto mb-6 bg-gray-700 rounded-full flex items-center justify-center">
+                      <svg className="w-10 h-10" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z"/>
+                      </svg>
+                    </div>
+                    <p className="text-xl font-medium">Video Demo</p>
+                    <p className="text-base text-gray-400 mt-2">1920 × 1080</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {/* Commented out Carousel */}
+            {/* <div className="relative h-[300px] sm:h-[400px] lg:h-[500px] xl:h-[600px] mt-8 lg:mt-0 w-full">
               <Carousel
                 cards={carouselCards}
                 autoSlideInterval={4000}
                 pauseOnHover={true}
                 className="group"
               />
-            </div>
+            </div> */}
           </div>
         </div>
       </section>
