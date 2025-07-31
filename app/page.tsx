@@ -6,12 +6,49 @@ import Orb from "../components/Orb";
 import { neon } from "@neondatabase/serverless";
 import { useState } from "react";
 import { createEntry } from "./actions";
+import toast, { Toaster } from 'react-hot-toast';
+import { z } from 'zod';
 
 export default function Home() {
   const [email, setEmail] = useState("")
 
+  // Zod schema for email validation
+  const emailSchema = z.object({
+    email: z
+      .string()
+      .min(1, "Email is required")
+      .email("Please enter a valid email address")
+      .max(254, "Email address is too long")
+      .refine(
+        (email) => !email.includes('..'), 
+        { message: "Email cannot contain consecutive dots" }
+      )
+      .refine(
+        (email) => !email.startsWith('.') && !email.endsWith('.'), 
+        { message: "Email cannot start or end with a dot" }
+      )
+  })
+
   async function handleWaitlist() {
-    createEntry(email)
+    // Validate email using Zod
+    const validation = emailSchema.safeParse({ email: email.trim() })
+    
+    if (!validation.success) {
+      // Get the first validation error and show it
+      const firstError = validation.error.issues[0]
+      toast.error(firstError.message)
+      return
+    }
+    
+    try {
+      // validation.data.email is guaranteed to be valid
+      await createEntry(validation.data.email)
+      setEmail("") // Clear the input
+      toast.success('Successfully added to waitlist! 🎉')
+    } catch (error) {
+      console.error('Error adding to waitlist:', error)
+      toast.error('Something went wrong. Please try again.')
+    }
   }
 
   // const carouselCards = [
@@ -59,7 +96,7 @@ export default function Home() {
           </div>
 
           <div className="flex items-center gap-6">
-            <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors text-base">
+            <button className="bg-[#ed2d7a] hover:bg-[#d1246a] text-white px-6 py-3 rounded-lg font-medium transition-colors text-base">
               see it urself
             </button>
           </div>
@@ -105,7 +142,7 @@ export default function Home() {
           {/* Actions */}
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
             <div
-              className="bg-blue-600 hover:bg-blue-700 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-medium transition-colors cursor-pointer pointer-events-auto text-sm sm:text-base"
+              className="bg-[#ed2d7a] hover:bg-[#d1246a] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-medium transition-colors cursor-pointer pointer-events-auto text-sm sm:text-base"
               onClick={handleWaitlist}
             >
               Join waitlist
@@ -113,8 +150,9 @@ export default function Home() {
             <input
               type="email"
               placeholder="Enter your email"
+              value={email}
               onChange={e => setEmail(e.target.value)}
-              className="border border-gray-300 focus:border-blue-500 focus:outline-none text-gray-700 px-4 sm:px-6 py-3 sm:py-4 rounded-xl font-light bg-white transition-colors pointer-events-auto w-full sm:w-auto sm:min-w-[250px] text-sm sm:text-base"
+              className="border border-gray-300 focus:border-[#ed2d7a] focus:outline-none text-gray-700 px-4 sm:px-6 py-3 sm:py-4 rounded-xl font-light bg-white transition-colors pointer-events-auto w-full sm:w-auto sm:min-w-[250px] text-sm sm:text-base"
             />
           </div>
 
@@ -217,6 +255,43 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* React Hot Toast */}
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+        gutter={8}
+        toastOptions={{
+          duration: 4000,
+          style: {
+            background: '#363636',
+            color: '#fff',
+            fontSize: '14px',
+            fontWeight: '500',
+            padding: '12px 16px',
+            borderRadius: '12px',
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+          },
+          success: {
+            style: {
+              background: '#10B981',
+            },
+            iconTheme: {
+              primary: '#fff',
+              secondary: '#10B981',
+            },
+          },
+          error: {
+            style: {
+              background: '#EF4444',
+            },
+            iconTheme: {
+              primary: '#fff',
+              secondary: '#EF4444',
+            },
+          },
+        }}
+      />
     </div>
   );
 }
