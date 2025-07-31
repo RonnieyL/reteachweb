@@ -56,27 +56,27 @@ const Carousel: React.FC<CarouselProps> = ({
       onMouseLeave={handleMouseLeave}
     >
       {/* Main Card Container */}
-      <div className="relative w-[1080px] h-[630px] bg-black rounded-xl border border-gray-800 overflow-hidden">
+      <div className="relative w-full max-w-[90vw] sm:max-w-[80vw] lg:max-w-[1080px] h-[300px] sm:h-[400px] lg:h-[630px] bg-black rounded-xl border border-gray-800 overflow-hidden">
         {/* Card Content */}
-        <div className="h-full flex flex-col items-center justify-center p-16 text-center text-white transition-all duration-500 ease-in-out">
+        <div className="h-full flex flex-col items-center justify-center p-4 sm:p-8 lg:p-16 text-center text-white transition-all duration-500 ease-in-out">
           {/* Icon/Image at the top */}
-          <div className="text-9xl mb-12 transform transition-transform duration-500 ease-in-out">
+          <div className="text-4xl sm:text-6xl lg:text-9xl mb-4 sm:mb-8 lg:mb-12 transform transition-transform duration-500 ease-in-out">
             {cards[currentIndex].icon}
           </div>
           
           {/* Title */}
-          <h3 className="text-4xl font-medium mb-8 transition-opacity duration-500 ease-in-out">
+          <h3 className="text-lg sm:text-2xl lg:text-4xl font-medium mb-3 sm:mb-6 lg:mb-8 transition-opacity duration-500 ease-in-out">
             {cards[currentIndex].title}
           </h3>
           
           {/* Description */}
-          <p className="text-xl text-gray-300 font-light leading-relaxed transition-opacity duration-500 ease-in-out max-w-2xl">
+          <p className="text-sm sm:text-lg lg:text-xl text-gray-300 font-light leading-relaxed transition-opacity duration-500 ease-in-out max-w-2xl px-2">
             {cards[currentIndex].description}
           </p>
         </div>
 
         {/* Slide Indicators */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-4">
+        <div className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2 sm:space-x-4">
           {cards.map((_, index) => (
             <button
               key={index}
